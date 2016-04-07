@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/space_10"
+    android:paddingBottom="@dimen/space_10"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RadioButton
+        android:id="@+id/todo_check"
+        android:layout_gravity="center_vertical"
+        android:paddingLeft="@dimen/space_20"
+        android:paddingRight="@dimen/space_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/todo_info"
+        android:layout_gravity="center_vertical"
+        android:textSize="@dimen/space_20"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+    <Button
+        android:id="@+id/stick"
+        android:layout_gravity="center_vertical"
+        android:background="@color/black"
+        android:paddingRight="@dimen/space_20"
+        android:layout_width="@dimen/space_20"
+        android:layout_height="match_parent" />
+    <TextView
+        android:layout_width="@dimen/space_20"
+        android:layout_height="match_parent" />
+
+
+</LinearLayout>

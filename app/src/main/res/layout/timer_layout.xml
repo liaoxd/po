@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionBarH"
+        android:padding="@dimen/actionBarPadding"
+        android:orientation="horizontal"
+        android:background="@color/gray_light">
+        <Button
+            android:id="@+id/timer_back"
+            android:layout_width="@dimen/iconH"
+            android:layout_height="@dimen/iconH"
+            android:layout_gravity="center_vertical"
+            android:text="b"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/voice_button"
+            android:layout_width="@dimen/iconH"
+            android:layout_height="@dimen/iconH"
+            android:text="v"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="15dp" />
+    <LinearLayout
+        android:id="@+id/check_Pinned_todo"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionBarH"
+        android:background="@color/white"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/timer_task_is_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/actionBarPadding"/>
+        <TextView
+            android:id="@+id/pinned_todo"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center" />
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="15dp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/controllerViewSize"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/timer_controller"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"/>
+        <RadioButton
+            android:id="@+id/controller"
+            android:layout_width="@dimen/controllerSize"
+            android:layout_height="@dimen/controllerSize"
+            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/timer_display"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="25:00"
+        android:textSize="@dimen/timeTextSize"
+        android:gravity="center"
+        android:paddingBottom="5dp"
+        android:background="@color/white"/>
+</LinearLayout>
