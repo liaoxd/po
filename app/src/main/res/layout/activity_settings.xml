@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:background="@color/gray_light"
+        android:layout_width="match_parent"
+        android:paddingLeft="10dp"
+        android:layout_height="@dimen/actionBarH">
+        <Button
+            android:id="@+id/setting2main"
+            android:layout_width="30dp"
+            android:layout_height="@dimen/iconH" />
+        <TextView
+            android:text="Settings"
+            android:textSize="20dp"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:paddingLeft="10dp"
+            android:layout_height="@dimen/iconH" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
+        <TextView
+            android:text="Sound"
+            android:gravity="center_vertical"
+            android:background="@color/gray_white"
+            android:layout_width="match_parent"
+            android:paddingLeft="5dp"
+            android:layout_height="@dimen/sNameH" />
+        <TextView
+            android:id="@+id/alarm_sound"
+            android:gravity="center_vertical"
+            android:text="Alarm Sound"
+            android:layout_width="match_parent"
+            android:paddingLeft="20dp"
+            android:layout_height="@dimen/settingsH" />
+        <TextView
+            android:id="@+id/working_sound"
+            android:gravity="center_vertical"
+            android:text="Working Sound"
+            android:layout_width="match_parent"
+            android:paddingLeft="20dp"
+            android:layout_height="@dimen/settingsH" />
+
+
+        <TextView
+            android:text="Pomo"
+            android:gravity="center_vertical"
+            android:background="@color/gray_white"
+            android:layout_width="match_parent"
+            android:paddingLeft="5dp"
+            android:layout_height="@dimen/sNameH" />
+        <TextView
+            android:id="@+id/pomo_goal"
+            android:gravity="center_vertical"
+            android:text="Goal"
+            android:layout_width="match_parent"
+            android:paddingLeft="20dp"
+            android:layout_height="@dimen/settingsH" />
+        <TextView
+            android:id="@+id/pomo_other"
+            android:gravity="center_vertical"
+            android:text="Other"
+            android:layout_width="match_parent"
+            android:paddingLeft="20dp"
+            android:layout_height="@dimen/settingsH" />
+
+        <TextView
+            android:text="Other"
+            android:gravity="center_vertical"
+            android:background="@color/gray_white"
+            android:layout_width="match_parent"
+            android:paddingLeft="5dp"
+            android:layout_height="@dimen/sNameH" />
+        <TextView
+            android:id="@+id/block_app"
+            android:gravity="center_vertical"
+            android:text="Block Apps"
+            android:layout_width="match_parent"
+            android:paddingLeft="20dp"
+            android:layout_height="@dimen/settingsH" />
+        <TextView
+            android:id="@+id/settings_display"
+            android:gravity="center_vertical"
+            android:text="Display"
+            android:layout_width="match_parent"
+            android:paddingLeft="20dp"
+            android:layout_height="@dimen/settingsH" />
+        <TextView
+            android:id="@+id/about"
+            android:gravity="center_vertical"
+            android:text="About"
+            android:layout_width="match_parent"
+            android:paddingLeft="20dp"
+            android:layout_height="@dimen/settingsH" />
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -26,11 +26,15 @@
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/iconH" />
-        <Button
+        <CheckBox
             android:id="@+id/start"
             android:layout_width="@dimen/iconH"
             android:layout_height="@dimen/iconH"
             android:layout_gravity="center_vertical"/>
+        <TextView
+            android:layout_width="10dp"
+            android:layout_height="wrap_content" />
+
         <Button
             android:id="@+id/settings"
             android:layout_width="@dimen/iconH"

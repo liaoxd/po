@@ -33,7 +33,7 @@ public class TaskListFragment extends Fragment {
     private ListView todoList;
     private List<Map> myTodo;
     private MyAdapter adapter;
-    private MyApplication.Tomato tomato = MyApplication.getTomato();
+
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -73,6 +73,7 @@ public class TaskListFragment extends Fragment {
         }
         adapter = new MyAdapter(getActivity(),myTodo);
         todoList.setAdapter(adapter);
+
     }
 
     @Override

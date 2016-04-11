@@ -13,6 +13,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -34,13 +35,15 @@ public class TimerActivity extends Activity{
 
     private TextView pinnedTodo, timerDisplay;
     boolean flag = true, isClose = false;
-    private RadioButton isDone, controller;
+    private RadioButton isDone;
+    private CheckBox controller;
     private Button timerBack,voiceControl;
     private Bitmap timerViewBmp;
     private ImageView timerController;
     private LinearLayout checkPinnedTodo;
     private TomatoUtil tomatoUtil;
     private MyApplication.Tomato tomato = MyApplication.getTomato();
+    private Paint paint = new Paint();
 
     private Thread thread;
     private Handler handler = new Handler() {
@@ -55,22 +58,21 @@ public class TimerActivity extends Activity{
                     //int h_screen = dm.heightPixels;
                     float width = DisplayUtil.px2dip(getApplicationContext(), w_screen);
                     float height = 200;
-
-                    Paint paint = new Paint();
-                    paint.setStrokeWidth(10);
+                    paint.setStyle(Paint.Style.FILL); //绘制空心圆
                     paint.setColor(Color.RED);
-
                     float cx = width/2;//DisplayUtil.dip2px(this, width/2);
                     float cy = height/2;//DisplayUtil.dip2px(this, height/2);
                     final Canvas canvas = new Canvas(timerViewBmp);
 
-                    final RectF rectF = new RectF(cx-70, cy-70, cx+70, cy+70);
-
+                    final RectF rectF = new RectF(cx-72, cy-72, cx+72, cy+72);
                     TomatoInfo info = (TomatoInfo) msg.obj;
-                    canvas.drawArc(rectF, 0, ((info.count*6)/25), true, paint);
+                    canvas.drawArc(rectF, 0, ((info.count * 6) / 25), true, paint);
+
                     paint.setColor(Color.WHITE);
-                    final RectF rectFInside = new RectF(cx-66, cy-66, cx+66, cy+66);
-                    canvas.drawArc(rectFInside, 0, ((info.count*6)/25), true, paint);
+                    //final RectF rectFInside = new RectF(cx-72, cy-72, cx+72, cy+72);
+                    canvas.drawCircle(cx, cy, 68, paint);
+                    //canvas.drawArc(rectFInside, 0, ((info.count*6)/25), true, paint);
+
                     timerController.setImageBitmap(timerViewBmp);
 
                     int remainTime = (int) (25*60000 - Calendar.getInstance().getTimeInMillis()
@@ -82,14 +84,12 @@ public class TimerActivity extends Activity{
         }
     };
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timer_layout);
 
-        controller = (RadioButton) findViewById(R.id.controller);
+        controller = (CheckBox) findViewById(R.id.controller);
         voiceControl = (Button) findViewById(R.id.voice_button);
         pinnedTodo = (TextView) findViewById(R.id.pinned_todo);
         isDone = (RadioButton) findViewById(R.id.timer_task_is_done);
@@ -102,14 +102,16 @@ public class TimerActivity extends Activity{
         timerBack.setOnClickListener(listener);
         voiceControl.setOnClickListener(listener);
         checkPinnedTodo.setOnClickListener(listener);
-    }
 
+        paint.setStrokeWidth(4);
+        paint.setAntiAlias(true); //消除锯齿
+        //paint.setStyle(Paint.Style.FILL_AND_STROKE);
+    }
 
     @Override
     protected void onStart() {
         super.onStart();
         initView();
-
     }
 
     @Override
@@ -121,7 +123,6 @@ public class TimerActivity extends Activity{
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        thread.destroy();
         isClose = true;
         handler.removeCallbacksAndMessages(null);
     }
@@ -140,7 +141,7 @@ public class TimerActivity extends Activity{
                     break;
                 case R.id.controller:
                     //TODO:开始或drop一个番茄
-                    RadioButton view = (RadioButton) v;
+                    CheckBox view = (CheckBox) v;
                     MyApplication.Tomato tomato = MyApplication.getTomato();
                     tomatoUtil = new TomatoUtil();
                     if (view.isChecked()) {
@@ -153,8 +154,8 @@ public class TimerActivity extends Activity{
                     else {
                         if (tomato.isStarted) {
                             tomatoUtil.dropTomato();
+                            initView();
                         }
-
                     }
                     break;
                 case R.id.check_Pinned_todo:
@@ -173,8 +174,14 @@ public class TimerActivity extends Activity{
                 super.run();
                 Calendar startTime = MyApplication.getTomato().startTime;
                 final TomatoInfo info = new TomatoInfo(startTime);
+                info.count = (Calendar.getInstance().
+                        getTimeInMillis()-info.startTime.getTimeInMillis())/1000;
+                flag = true;
+                System.out.println(info.count);
+                handler.obtainMessage(1,info).sendToTarget();
                 Timer timer = new Timer(); //设置定时器
-                while (Calendar.getInstance().getTimeInMillis() < startTime.getTimeInMillis() + 25*60*1000){
+                while (Calendar.getInstance().getTimeInMillis()
+                        < startTime.getTimeInMillis() + 25*60*1000 && tomato.isStarted){
                     if (isClose){
                         break;
                     }
@@ -183,20 +190,19 @@ public class TimerActivity extends Activity{
                         timer.schedule(new TimerTask() {
                             @Override
                             public void run() { //发送一个更新UI的Message
-                                info.count = (Calendar.getInstance().getTimeInMillis()-info.startTime.getTimeInMillis())/1000;
+                                info.count = (Calendar.getInstance().
+                                        getTimeInMillis()-info.startTime.getTimeInMillis())/1000;
                                 flag = true;
                                 System.out.println(info.count);
                                 handler.obtainMessage(1,info).sendToTarget();
                             }
                         },1000); //设置1秒的时长,刷新一次进度。
                     }
-
                 }
             }
         };
         thread.start();
     }
-
 
     private void initView() {
         DisplayMetrics dm =getResources().getDisplayMetrics();
@@ -204,28 +210,27 @@ public class TimerActivity extends Activity{
         //int h_screen = dm.heightPixels;
         float width = DisplayUtil.px2dip(this, w_screen);
         float height = 200;
-        Log.i("width", width+" ");
+        Log.i("width", width + " ");
         timerViewBmp = Bitmap.createBitmap((int)width,
                 (int)height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(timerViewBmp);
         canvas.drawColor(Color.WHITE);
-
-        Paint paint = new Paint();
-        paint.setStrokeWidth(0);
         paint.setColor(Color.GRAY);
-
+        paint.setStyle(Paint.Style.STROKE); //绘制空心圆
         float cx = width/2;//DisplayUtil.dip2px(this, width/2);
         float cy = height/2;//DisplayUtil.dip2px(this, height/2);
         canvas.drawCircle(cx, cy, 70, paint);
-        paint.setColor(Color.WHITE);
-        canvas.drawCircle(cx, cy, 66, paint);
-
         timerController.setImageBitmap(timerViewBmp);
+        timerDisplay.setText("25:00");
 
         if (tomato.isStarted) {
+            controller.setChecked(true);
             timerAction();
         }
-
+        else {
+            controller.setChecked(false);
+            timerDisplay.setText("25:00");
+        }
     }
     class TomatoInfo{
         long count;
